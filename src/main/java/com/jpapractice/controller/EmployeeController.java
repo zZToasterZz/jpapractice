@@ -26,7 +26,8 @@ public class EmployeeController
 	@PostMapping("/search")
 	public List<EmployeeModel> searchEmployees(@RequestBody EmployeeModel x)
 	{
-		List<EmployeeModel> e = empServ.searchEmployees(x);
+		//List<EmployeeModel> e = empServ.searchEmployees(x);
+		List<EmployeeModel> e = empServ.queryTest(x);
 		return e;
 	}
 	

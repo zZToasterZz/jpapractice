@@ -12,6 +12,9 @@ import com.jpapractice.entity.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long>
 {
-	@Query(value = "select a from Employee a where a.name like %:name% and a.id like :id and a.address like %:address% and a.city like %:city% and salary like :salary")
+	@Query(value = "select a from Employee a where a.name like CONCAT('%',:name,'%') and a.id like CONCAT('%',:id,'%') and a.address like CONCAT('%',:address,'%') and a.city like CONCAT('%',:city,'%') and salary like CONCAT('%',:salary,'%')")
 	public List<Employee> searchEmployee(@Param("name")String name,@Param("address")String address,@Param("city")String city,@Param("salary")double salary,@Param("id")long id);
+	
+	@Query(value = "select a from Employee a where a.id like CONCAT('%',:id,'%') ")
+	public List<Employee> queryTest(@Param("id")long id);
 }

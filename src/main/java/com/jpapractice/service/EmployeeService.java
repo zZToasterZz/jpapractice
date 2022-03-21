@@ -19,8 +19,20 @@ public class EmployeeService
 	@Autowired
 	EmployeeRepository empRepo;
 	
+	public List<EmployeeModel> queryTest(EmployeeModel x)
+	{
+		System.out.println(x.toString());
+		List<EmployeeModel> r = empRepo.queryTest(x.getId()).stream()
+				.map(e -> {
+					return new EmployeeModel(e.getId(), e.getName(), e.getAddress(), e.getSalary(), e.getCity());
+				}).collect(Collectors.toList());
+		
+		return r;
+	}
+	
 	public List<EmployeeModel> searchEmployees(EmployeeModel x)
 	{
+		System.out.println(x.toString());
 		List<EmployeeModel> r = empRepo.searchEmployee(x.getName(),x.getAddress(),x.getCity(),x.getSalary(),x.getId()).stream()
 				.map(e -> {
 					return new EmployeeModel(e.getId(), e.getName(), e.getAddress(), e.getSalary(), e.getCity());
