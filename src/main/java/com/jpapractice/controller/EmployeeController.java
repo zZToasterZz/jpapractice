@@ -27,9 +27,7 @@ public class EmployeeController
 	public List<EmployeeModel> searchEmployees(@RequestBody EmployeeModel x)
 	{
 		//List<EmployeeModel> e = empServ.searchEmployees(x);
-		List<EmployeeModel> e = empServ.queryTest(x);
-		//TESTING GIT PULL
-		//testnig git push
+		List<EmployeeModel> e = empServ.searchEmployees(x);
 		return e;
 	}
 	

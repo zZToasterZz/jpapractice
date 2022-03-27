@@ -19,23 +19,11 @@ public class EmployeeService
 	@Autowired
 	EmployeeRepository empRepo;
 	
-	public List<EmployeeModel> queryTest(EmployeeModel x)
-	{
-		System.out.println(x.toString());
-		List<EmployeeModel> r = empRepo.queryTest(x.getId()).stream()
-				.map(e -> {
-					return new EmployeeModel(e.getId(), e.getName(), e.getAddress(), e.getSalary(), e.getCity());
-				}).collect(Collectors.toList());
-		
-		return r;
-	}
-	
 	public List<EmployeeModel> searchEmployees(EmployeeModel x)
 	{
-		System.out.println(x.toString());
-		List<EmployeeModel> r = empRepo.searchEmployee(x.getName(),x.getAddress(),x.getCity(),x.getSalary(),x.getId()).stream()
+		List<EmployeeModel> r = empRepo.searchEmployee(x.getId(),x.getName(),x.getAddress(),x.getCity()/*,x.getSalary()*/).stream()
 				.map(e -> {
-					return new EmployeeModel(e.getId(), e.getName(), e.getAddress(), e.getSalary(), e.getCity());
+					return new EmployeeModel(""+e.getId(), e.getName(), e.getAddress(), e.getSalary(), e.getCity());
 				}).collect(Collectors.toList());
 		
 		return r;
@@ -45,7 +33,7 @@ public class EmployeeService
 	{
 		List<Employee> e = empRepo.findAll();
 		List<EmployeeModel> x = e.stream().map(i -> {
-			return new EmployeeModel(i.getId(),i.getName(),i.getAddress(),i.getSalary(),i.getCity());
+			return new EmployeeModel(""+i.getId(),i.getName(),i.getAddress(),i.getSalary(),i.getCity());
 		}).collect(Collectors.toList());
 		
 		return x;
@@ -55,14 +43,14 @@ public class EmployeeService
 	{
 		Optional<Employee> e = empRepo.findById(id);
 		Employee em = e.get();
-		EmployeeModel x = new EmployeeModel(em.getId(),em.getName(),em.getAddress(),em.getSalary(),em.getCity());
+		EmployeeModel x = new EmployeeModel(""+em.getId(),em.getName(),em.getAddress(),em.getSalary(),em.getCity());
 		
 		return x;
 	}
 	
 	public String addEmployee(EmployeeModel e)
 	{
-		Employee x = new Employee(e.getId(),e.getName(),e.getAddress(),e.getSalary(),e.getCity());
+		Employee x = new Employee(Integer.parseInt(e.getId()),e.getName(),e.getAddress(),e.getSalary(),e.getCity());
 		empRepo.save(x);
 		return "success";
 	}
@@ -70,7 +58,7 @@ public class EmployeeService
 	public String addEmployee(List<EmployeeModel> list)
 	{
 		List<Employee> x = list.stream().map(e -> {
-			return new Employee(e.getId(),e.getName(),e.getAddress(),e.getSalary(),e.getCity());
+			return new Employee(Integer.parseInt(e.getId()),e.getName(),e.getAddress(),e.getSalary(),e.getCity());
 		}).collect(Collectors.toList());
 		
 		empRepo.saveAll(x);
@@ -79,26 +67,26 @@ public class EmployeeService
 	
 	public String updateEmployee(EmployeeModel e)
 	{
-		if(e.getId() < 1)
+		if(Integer.parseInt(e.getId()) < 1)
 		{
 			return "failure";
 		}
 		
-		Employee x = new Employee(e.getId(),e.getName(),e.getAddress(),e.getSalary(),e.getCity());
+		Employee x = new Employee(Integer.parseInt(e.getId()),e.getName(),e.getAddress(),e.getSalary(),e.getCity());
 		empRepo.save(x);
 		return "success";
 	}
 	
 	public ResponseMessage<String, List<Employee>> updateEmployee(List<EmployeeModel> list)
 	{
-		List<Employee> e = list.stream().filter(i -> i.getId() > 0).map(i -> {
-			return new Employee(i.getId(),i.getName(),i.getAddress(),i.getSalary(),i.getCity());
+		List<Employee> e = list.stream().filter(i -> Integer.parseInt(i.getId()) > 0).map(i -> {
+			return new Employee(Integer.parseInt(i.getId()),i.getName(),i.getAddress(),i.getSalary(),i.getCity());
 		}).collect(Collectors.toList());
 		
 		empRepo.saveAll(e);
 		
-		List<Employee> x = list.stream().filter(i -> i.getId() < 1).map(i -> {
-			return new Employee(i.getId(),i.getName(),i.getAddress(),i.getSalary(),i.getCity());
+		List<Employee> x = list.stream().filter(i -> Integer.parseInt(i.getId()) < 1).map(i -> {
+			return new Employee(Integer.parseInt(i.getId()),i.getName(),i.getAddress(),i.getSalary(),i.getCity());
 		}).collect(Collectors.toList());
 		
 		HashMap<String, List<Employee>> hm = new HashMap<>();
@@ -119,7 +107,7 @@ public class EmployeeService
 	
 	public String deleteEmployee(EmployeeModel e)
 	{
-		Employee x = new Employee(e.getId(),e.getName(),e.getAddress(),e.getSalary(),e.getCity());
+		Employee x = new Employee(Integer.parseInt(e.getId()),e.getName(),e.getAddress(),e.getSalary(),e.getCity());
 		empRepo.delete(x);
 		return "success";
 	}
@@ -127,7 +115,7 @@ public class EmployeeService
 	public String deleteEmployee(List<EmployeeModel> list)
 	{
 		List<Employee> e = list.stream().map(i -> {
-			return new Employee(i.getId(),i.getName(),i.getAddress(),i.getSalary(),i.getCity());
+			return new Employee(Integer.parseInt(i.getId()),i.getName(),i.getAddress(),i.getSalary(),i.getCity());
 		}).collect(Collectors.toList());
 		
 		empRepo.deleteAll(e);

@@ -2,13 +2,13 @@ package com.jpapractice.models;
 
 public class EmployeeModel
 {
-	private long id;
+	private String id;
 	private String name;
 	private String address;
 	private double salary;
 	private String city;
 	
-	public EmployeeModel(long id, String name, String address, double salary, String city) {
+	public EmployeeModel(String id, String name, String address, double salary, String city) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -19,10 +19,10 @@ public class EmployeeModel
 	public EmployeeModel() {
 		super();
 	}
-	public long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getName() {
