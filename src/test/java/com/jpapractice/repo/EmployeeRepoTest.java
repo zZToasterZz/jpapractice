@@ -29,6 +29,8 @@ public class EmployeeRepoTest
 		
 		List<Employee> x = empRepo.searchEmployee("99", "", "", "");
 		
+		System.out.println(x);
+		
 		assertThat(e).isEqualToComparingFieldByField(x.get(0));
 	}
 	

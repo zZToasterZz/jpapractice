@@ -2,11 +2,11 @@ package com.jpapractice.models;
 
 public class EmployeeModel
 {
-	private String id;
-	private String name;
-	private String address;
+	private String id="";
+	private String name="";
+	private String address="";
 	private double salary;
-	private String city;
+	private String city="";
 	
 	public EmployeeModel(String id, String name, String address, double salary, String city) {
 		super();

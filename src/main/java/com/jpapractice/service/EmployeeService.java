@@ -19,6 +19,13 @@ public class EmployeeService
 	@Autowired
 	EmployeeRepository empRepo;
 	
+	EmployeeService(EmployeeRepository e)
+	{
+		empRepo = e;
+	}
+	
+	EmployeeService(){}
+	
 	public List<EmployeeModel> searchEmployees(EmployeeModel x)
 	{
 		List<EmployeeModel> r = empRepo.searchEmployee(x.getId(),x.getName(),x.getAddress(),x.getCity()/*,x.getSalary()*/).stream()
