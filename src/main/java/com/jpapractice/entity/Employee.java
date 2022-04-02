@@ -1,11 +1,18 @@
 package com.jpapractice.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Employee")
+@NamedQueries(
+		@NamedQuery(name = "Employee.countEmployeesByDepartment", query = "select count(a) from Employee a group by a.department")
+)
 public class Employee
 {
 	@Id
@@ -15,6 +22,9 @@ public class Employee
 	double salary;
 	String city;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	Department department;
+	
 	public Employee(long id, String name, String address, double salary, String city) {
 		super();
 		this.id = id;
@@ -22,6 +32,12 @@ public class Employee
 		this.address = address;
 		this.salary = salary;
 		this.city = city;
+	}
+	public Department getDepartment() {
+		return department;
+	}
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 	public Employee() {
 		super();
