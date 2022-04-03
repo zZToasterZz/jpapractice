@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jpapractice.entity.Department;
 import com.jpapractice.entity.Employee;
 import com.jpapractice.models.EmployeeModel;
 import com.jpapractice.models.ResponseMessage;
@@ -57,7 +58,8 @@ public class EmployeeService
 	
 	public String addEmployee(EmployeeModel e)
 	{
-		Employee x = new Employee(Integer.parseInt(e.getId()),e.getName(),e.getAddress(),e.getSalary(),e.getCity());
+		Department department=null;
+		Employee x = new Employee(Integer.parseInt(e.getId()),e.getName(),e.getAddress(),e.getSalary(),e.getCity(),department);
 		empRepo.save(x);
 		return "success";
 	}
@@ -65,7 +67,8 @@ public class EmployeeService
 	public String addEmployee(List<EmployeeModel> list)
 	{
 		List<Employee> x = list.stream().map(e -> {
-			return new Employee(Integer.parseInt(e.getId()),e.getName(),e.getAddress(),e.getSalary(),e.getCity());
+			Department department=null;
+			return new Employee(Integer.parseInt(e.getId()),e.getName(),e.getAddress(),e.getSalary(),e.getCity(),department);
 		}).collect(Collectors.toList());
 		
 		empRepo.saveAll(x);

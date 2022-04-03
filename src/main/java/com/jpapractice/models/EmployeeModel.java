@@ -7,6 +7,7 @@ public class EmployeeModel
 	private String address="";
 	private double salary;
 	private String city="";
+	private DepartmentModel department;
 	
 	public EmployeeModel(String id, String name, String address, double salary, String city) {
 		super();
@@ -15,6 +16,22 @@ public class EmployeeModel
 		this.address = address;
 		this.salary = salary;
 		this.city = city;
+	}
+	public EmployeeModel(String id, String name, String address, double salary, String city,
+			DepartmentModel department) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.salary = salary;
+		this.city = city;
+		this.department = department;
+	}
+	public DepartmentModel getDepartment() {
+		return department;
+	}
+	public void setDepartment(DepartmentModel department) {
+		this.department = department;
 	}
 	public EmployeeModel() {
 		super();
@@ -51,7 +68,7 @@ public class EmployeeModel
 	}
 	@Override
 	public String toString() {
-		return "EmployeeModel [id=" + id + ", name=" + name + ", address=" + address + ", salary=" + salary + ", city=" + city
-				+ "]";
+		return "EmployeeModel [id=" + id + ", name=" + name + ", address=" + address + ", salary=" + salary + ", city="
+				+ city + ", department=" + department + "]";
 	}
 }

@@ -1,8 +1,11 @@
 package com.jpapractice.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -16,18 +19,20 @@ import javax.persistence.Table;
 public class Employee
 {
 	@Id
-	long id;
+	@GeneratedValue
+	long employee_id;
 	String name;
 	String address;
 	double salary;
 	String city;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "department_id", referencedColumnName = "department_id", insertable = true, updatable = true)
 	Department department;
 	
 	public Employee(long id, String name, String address, double salary, String city) {
 		super();
-		this.id = id;
+		this.employee_id = id;
 		this.name = name;
 		this.address = address;
 		this.salary = salary;
@@ -43,10 +48,10 @@ public class Employee
 		super();
 	}
 	public long getId() {
-		return id;
+		return employee_id;
 	}
 	public void setId(long id) {
-		this.id = id;
+		this.employee_id = id;
 	}
 	public String getName() {
 		return name;
@@ -74,7 +79,16 @@ public class Employee
 	}
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", address=" + address + ", salary=" + salary + ", city=" + city
+		return "Employee [id=" + employee_id + ", name=" + name + ", address=" + address + ", salary=" + salary + ", city=" + city
 				+ "]";
+	}
+	public Employee(long id, String name, String address, double salary, String city, Department department) {
+		super();
+		this.employee_id = id;
+		this.name = name;
+		this.address = address;
+		this.salary = salary;
+		this.city = city;
+		this.department = department;
 	}
 }

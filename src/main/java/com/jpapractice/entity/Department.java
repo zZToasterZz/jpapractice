@@ -8,12 +8,12 @@ import javax.persistence.*;
 public class Department
 {
 	@Id
-	long id;
+	@GeneratedValue
+	long department_id;
 	String name;
 	String description;
 	
-	@OneToMany
-	@JoinColumn(name = "id")
+	@OneToMany(mappedBy = "department")
 	List<Employee> employees;
 
 	public Department() {
@@ -22,7 +22,7 @@ public class Department
 
 	public Department(long id, String name, String description, List<Employee> employees) {
 		super();
-		this.id = id;
+		this.department_id = id;
 		this.name = name;
 		this.description = description;
 		this.employees = employees;
@@ -30,16 +30,16 @@ public class Department
 
 	@Override
 	public String toString() {
-		return "Department [id=" + id + ", name=" + name + ", description=" + description + ", employees=" + employees
+		return "Department [id=" + department_id + ", name=" + name + ", description=" + description + ", employees=" + employees
 				+ "]";
 	}
 
 	public long getId() {
-		return id;
+		return department_id;
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		this.department_id = id;
 	}
 
 	public String getName() {
