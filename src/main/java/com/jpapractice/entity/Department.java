@@ -19,7 +19,13 @@ public class Department
 	public Department() {
 		super();
 	}
-
+	public Department(long id, String name, String description) {
+		super();
+		this.department_id = id;
+		this.name = name;
+		this.description = description;
+	}
+	
 	public Department(long id, String name, String description, List<Employee> employees) {
 		super();
 		this.department_id = id;

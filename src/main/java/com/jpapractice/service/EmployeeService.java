@@ -58,8 +58,8 @@ public class EmployeeService
 	
 	public String addEmployee(EmployeeModel e)
 	{
-		Department department=null;
-		Employee x = new Employee(Integer.parseInt(e.getId()),e.getName(),e.getAddress(),e.getSalary(),e.getCity(),department);
+		Department department=new Department(0L,e.getDepartment().getName(),e.getDepartment().getDescription());
+		Employee x = new Employee(0,e.getName(),e.getAddress(),e.getSalary(),e.getCity(),department);
 		empRepo.save(x);
 		return "success";
 	}
@@ -67,8 +67,8 @@ public class EmployeeService
 	public String addEmployee(List<EmployeeModel> list)
 	{
 		List<Employee> x = list.stream().map(e -> {
-			Department department=null;
-			return new Employee(Integer.parseInt(e.getId()),e.getName(),e.getAddress(),e.getSalary(),e.getCity(),department);
+			Department department=new Department(0L,e.getDepartment().getName(),e.getDepartment().getDescription());
+			return new Employee(0L,e.getName(),e.getAddress(),e.getSalary(),e.getCity(),department);
 		}).collect(Collectors.toList());
 		
 		empRepo.saveAll(x);
