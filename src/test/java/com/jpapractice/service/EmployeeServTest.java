@@ -1,6 +1,12 @@
 package com.jpapractice.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.jpapractice.entity.Employee;
 import com.jpapractice.models.EmployeeModel;
 import com.jpapractice.repository.EmployeeRepository;
 
@@ -51,7 +58,20 @@ public class EmployeeServTest
 	@Test
 	void searchEmployees()
 	{
-		empServ.searchEmployees(emp);
-		verify(empRepo).searchEmployee(emp.getId(), emp.getName(), emp.getAddress(), emp.getCity());
+		List<Employee> res = new ArrayList<>();
+		res.add(new Employee(1,"sunny","abc",55000,"lko"));
+		
+		List<EmployeeModel> test = new ArrayList<>();
+		test.add(new EmployeeModel("1","sunny","abc",55000,"lko"));
+		
+		when(empRepo.searchEmployee("1", "", "", "")).thenReturn(res);
+		
+		EmployeeModel t = new EmployeeModel();
+		t.setId("1");
+		
+		List<String> x = test.stream().map(Object::toString).collect(Collectors.toList());
+		List<String> y = empServ.searchEmployees(t).stream().map(Object::toString).collect(Collectors.toList());
+		
+		assertEquals(x, y);
 	}
 }

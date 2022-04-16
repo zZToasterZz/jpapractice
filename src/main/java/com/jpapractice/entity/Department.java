@@ -71,4 +71,20 @@ public class Department
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(department_id, description, employees, name);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Department)) {
+			return false;
+		}
+		Department other = (Department) obj;
+		return department_id == other.department_id && Objects.equals(description, other.description)
+				&& Objects.equals(employees, other.employees) && Objects.equals(name, other.name);
+	}
 }

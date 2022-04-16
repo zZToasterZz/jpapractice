@@ -1,5 +1,7 @@
 package com.jpapractice.entity;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -90,5 +92,23 @@ public class Employee
 		this.salary = salary;
 		this.city = city;
 		this.department = department;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(address, city, department, employee_id, name, salary);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Employee)) {
+			return false;
+		}
+		Employee other = (Employee) obj;
+		return Objects.equals(address, other.address) && Objects.equals(city, other.city)
+				&& Objects.equals(department, other.department) && employee_id == other.employee_id
+				&& Objects.equals(name, other.name)
+				&& Double.doubleToLongBits(salary) == Double.doubleToLongBits(other.salary);
 	}
 }
